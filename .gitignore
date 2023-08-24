@@ -1,2 +1,3 @@
 /summarise/.env
 /summarise/venv
+/faiss/venv

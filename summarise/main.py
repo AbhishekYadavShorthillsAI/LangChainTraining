@@ -3,23 +3,26 @@ import openai
 from dotenv import load_dotenv
 from langchain.chat_models import ChatOpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.prompts import ChatPromptTemplate
 from langchain.document_loaders import PyPDFLoader
 from langchain.chains.summarize import load_summarize_chain
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Set up OpenAI API configuration
-openai.api_type = "azure"
-openai.api_version = "2023-05-15"
-openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_base = os.getenv("OPENAI_API_BASE")
-
 class FileSummarizer:
     def __init__(self, file_path):
         self.file_path = file_path
+        self.config_azure_api()
         self.chat_model = ChatOpenAI(temperature=0.0, model_kwargs={"engine": "GPT3-5"})
+        
+        
+    def config_azure_api(self):
+        
+        # Set up OpenAI API configuration
+        openai.api_type = "azure"
+        openai.api_version = "2023-05-15"
+        openai.api_key = os.getenv("OPENAI_API_KEY")
+        openai.api_base = os.getenv("OPENAI_API_BASE")
 
     def file_loader(self):
         # Load the PDF file using PyPDFLoader
@@ -34,8 +37,9 @@ class FileSummarizer:
     def splitter(self, pages_content_list):
         # Split text into chunks using RecursiveCharacterTextSplitter
         text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=500,
-            chunk_overlap=80,
+            separators="\n",
+            chunk_size=1000,
+            chunk_overlap=100,
             length_function=len
         )
         texts = text_splitter.create_documents(pages_content_list)
@@ -51,10 +55,10 @@ class FileSummarizer:
         chain = load_summarize_chain(self.chat_model, chain_type="map_reduce")
         
         # Run the chain on the first two chunks
-        print(chain.run(texts[0:2]))
+        print(chain.run(texts))
 
 # Path to the PDF file
-file_path = "/home/shtlp_0146/Desktop/summarise/budget_speech.pdf"
+file_path = "./input/budget_speech.pdf"
 
 # Create a FileSummarizer instance
 summarizer = FileSummarizer(file_path)
