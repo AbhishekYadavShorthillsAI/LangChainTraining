@@ -1,3 +1,4 @@
 /summarise/.env
 /summarise/venv
 /faiss/venv
+/faiss/.env
