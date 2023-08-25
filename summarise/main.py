@@ -8,6 +8,14 @@ from langchain.chains.summarize import load_summarize_chain
 
 # Load environment variables from .env file
 load_dotenv()
+from langchain.prompts import PromptTemplate
+prompt_template = """
+Extract Key facts about the provide text.
+"{text}"
+
+
+CONCISE SUMMARY:"""
+PROMPT = PromptTemplate(template=prompt_template, input_variables=["text"])
 
 class FileSummarizer:
     def __init__(self, file_path):
@@ -52,10 +60,10 @@ class FileSummarizer:
         texts = self.splitter(pages_content_list)
         
         # Load the summarize chain
-        chain = load_summarize_chain(self.chat_model, chain_type="map_reduce")
+        chain = load_summarize_chain(self.chat_model, chain_type="refine", question_prompt=PROMPT)
         
         # Run the chain on the first two chunks
-        print(chain.run(texts))
+        print(chain.run(texts[0:5]))
 
 # Path to the PDF file
 file_path = "./input/budget_speech.pdf"
