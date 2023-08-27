@@ -2,3 +2,5 @@
 /summarise/.env
 /summarise/venv
 /faiss/venv
+/BufferMemory/.env
+/BufferMemory/venv
