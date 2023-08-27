@@ -34,7 +34,6 @@ class EmbeddingProcessor:
     def __init__(self, model_name):
         # Initialize instructor embeddings using HuggingFace model
         self.embeddings = SentenceTransformerEmbeddings(model_name=model_name)
-        print(self.embeddings)
     
     def create_embedding_database(self, docs):
         # Create embedding database using FAISS for the given documents and embeddings
@@ -68,7 +67,7 @@ if __name__ == "__main__":
     
     # Initialize DocumentProcessor with PDF path
     document_processor = DocumentProcessor('./input/')
-    # Split PDF documents into chunks
+    # Split PDF documents into chunksz
     docs = document_processor.split_documents()
     
     # Initialize EmbeddingProcessor with model name
