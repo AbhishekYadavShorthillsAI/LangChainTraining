@@ -1,6 +1,10 @@
-/faiss/.env
+
 /summarise/.env
 /summarise/venv
 /faiss/venv
-/BufferMemory/.env
-/BufferMemory/venv
+/faiss/.env
+/buffer_memory/.env
+/buffer_memory/venv
+
+/chains/.env
+/chains/venv
