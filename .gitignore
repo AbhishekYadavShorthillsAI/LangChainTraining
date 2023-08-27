@@ -8,3 +8,6 @@
 
 /chains/.env
 /chains/venv
+
+/agents/venv
+/agents/.env
