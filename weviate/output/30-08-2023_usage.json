@@ -1,0 +1,75 @@
+{
+    "usage_track": [
+        {
+            "Total Tokens": 922,
+            "Prompt Tokens": 844,
+            "Completion Tokens": 78,
+            "Total Cost (USD)": 0.001422,
+            "Time Stamp": "22:57:17"
+        },
+        {
+            "Total Tokens": 1265,
+            "Prompt Tokens": 1071,
+            "Completion Tokens": 194,
+            "Total Cost (USD)": 0.0019945,
+            "Time Stamp": "22:57:25"
+        },
+        {
+            "Total Tokens": 1323,
+            "Prompt Tokens": 1202,
+            "Completion Tokens": 121,
+            "Total Cost (USD)": 0.002045,
+            "Time Stamp": "22:57:32"
+        },
+        {
+            "Total Tokens": 922,
+            "Prompt Tokens": 844,
+            "Completion Tokens": 78,
+            "Total Cost (USD)": 0.001422,
+            "Time Stamp": "23:05:26"
+        },
+        {
+            "Total Tokens": 922,
+            "Prompt Tokens": 844,
+            "Completion Tokens": 78,
+            "Total Cost (USD)": 0.001422,
+            "Time Stamp": "23:07:19"
+        },
+        {
+            "Total Tokens": 1265,
+            "Prompt Tokens": 1071,
+            "Completion Tokens": 194,
+            "Total Cost (USD)": 0.0019945,
+            "Time Stamp": "23:07:26"
+        },
+        {
+            "Total Tokens": 1327,
+            "Prompt Tokens": 1202,
+            "Completion Tokens": 125,
+            "Total Cost (USD)": 0.002053,
+            "Time Stamp": "23:07:31"
+        },
+        {
+            "Total Tokens": 922,
+            "Prompt Tokens": 844,
+            "Completion Tokens": 78,
+            "Total Cost (USD)": 0.001422,
+            "Time Stamp": "23:08:14"
+        },
+        {
+            "Total Tokens": 1265,
+            "Prompt Tokens": 1071,
+            "Completion Tokens": 194,
+            "Total Cost (USD)": 0.0019945,
+            "Time Stamp": "23:08:23"
+        },
+        {
+            "Total Tokens": 1322,
+            "Prompt Tokens": 1202,
+            "Completion Tokens": 120,
+            "Total Cost (USD)": 0.002043,
+            "Time Stamp": "23:08:28"
+        }
+    ],
+    "day_cost": 0.0178125
+}

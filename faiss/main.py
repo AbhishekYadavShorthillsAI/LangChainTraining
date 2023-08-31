@@ -1,4 +1,5 @@
 import os
+import json
 from dotenv import load_dotenv
 import openai
 from langchain.chat_models import ChatOpenAI
@@ -8,6 +9,7 @@ from langchain.embeddings import SentenceTransformerEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import DirectoryLoader
+from helicone.openai_proxy import openai
 
 class OpenAIConfig:
     def __init__(self, api_key, api_base):
@@ -37,7 +39,14 @@ class EmbeddingProcessor:
     
     def create_embedding_database(self, docs):
         # Create embedding database using FAISS for the given documents and embeddings
-        return FAISS.from_documents(docs, self.embeddings)
+    
+        try:
+            db = FAISS.load_local("faiss_index", self.embeddings)
+        except:
+            db = FAISS.from_documents(docs, self.embeddings)
+            db.save_local("faiss_index")
+            
+        return db
 
 class DocumentSearch:
     def __init__(self, embedding_db):
@@ -53,7 +62,7 @@ class DocumentSearch:
         
         for page in results:
             src_meta_list.append(page.metadata)
-        return src_meta_list
+        return json.dumps(src_meta_list)
 
 if __name__ == "__main__":
     # Load environment variables from .env file
@@ -63,20 +72,21 @@ if __name__ == "__main__":
     openai_config = OpenAIConfig(api_key, api_base)
     
     # Initialize ChatOpenAI model
-    chat_model = ChatOpenAI(temperature=0.0, model_kwargs={"engine": "GPT3-5"})
+    chat_model =  ChatOpenAI(temperature=0.0, model_kwargs={"engine": "GPT3-5"}, headers={
+                            "Helicone-Auth": "Bearer sk-helicone-jocztra-rzquezq-vupgixi-ovqylny",
+                            "Helicone-User-Id": "Abhishek.Yadav"})
     
     # Initialize DocumentProcessor with PDF path
     document_processor = DocumentProcessor('./input/')
-    # Split PDF documents into chunksz
     docs = document_processor.split_documents()
     
     # Initialize EmbeddingProcessor with model name
     embedding_processor = EmbeddingProcessor(model_name="all-MiniLM-L6-v2")
     # Create embedding database using documents and instructor embeddings
-    db_instructEmbedd = embedding_processor.create_embedding_database(docs)
+    faiss_vector_store = embedding_processor.create_embedding_database(docs)
     
     # Initialize DocumentSearch with embedding database
-    search_processor = DocumentSearch(embedding_db=db_instructEmbedd)
+    search_processor = DocumentSearch(embedding_db=faiss_vector_store)
     
     
     # Print search results
@@ -88,5 +98,19 @@ if __name__ == "__main__":
     similarity_results_src = search_processor.get_similarity_metadata(results)
     print(similarity_results_src)
     print(chain.run(input_documents=results, question=results))
+    
+    
+    
+    
+    # Print search results
+    chain = load_qa_chain(chat_model, chain_type="stuff")
+    
+    # Perform similarity search on the database
+    results = search_processor.search_similarity("What is discussed about LEGISLATIVE CHANGES IN GST LAWS", k=5)
+    
+    similarity_results_src = search_processor.get_similarity_metadata(results)
+    print(similarity_results_src)
+    print(chain.run(input_documents=results, question=results))
+    
     
     

@@ -1,0 +1,26 @@
+{
+    "usage_track": [
+        {
+            "Total Tokens": 922,
+            "Prompt Tokens": 844,
+            "Completion Tokens": 78,
+            "Total Cost (USD)": 0.001422,
+            "Time Stamp": "08:34:52"
+        },
+        {
+            "Total Tokens": 1265,
+            "Prompt Tokens": 1071,
+            "Completion Tokens": 194,
+            "Total Cost (USD)": 0.0019945,
+            "Time Stamp": "08:34:58"
+        },
+        {
+            "Total Tokens": 1323,
+            "Prompt Tokens": 1202,
+            "Completion Tokens": 121,
+            "Total Cost (USD)": 0.002045,
+            "Time Stamp": "08:35:02"
+        }
+    ],
+    "day_cost": 0.0054615
+}

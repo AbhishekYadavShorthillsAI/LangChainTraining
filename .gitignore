@@ -11,3 +11,7 @@
 
 /agents/venv
 /agents/.env
+
+/weviate/venv
+/weviate/.env
+/weviate/__pycache__
