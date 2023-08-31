@@ -38,9 +38,10 @@ class LangChainApp:
     #initialises openai and embeddings
     def setup_components(self):
         self.llm = ChatOpenAI(temperature=0.0, model_kwargs={"engine": "GPT3-5"}, headers={
-                            "Helicone-Auth": "Bearer sk-helicone-jocztra-rzquezq-vupgixi-ovqylny",
+                            "Helicone-Auth": os.getenv('Helicone-Auth'),
                             "Helicone-User-Id": "Abhishek.Yadav"})
         self.embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+        print()
 
     #loads all pdfs from given directory recursively and returns chunks of all loaded data
     def load_documents_create_chunks(self, input_directory):
@@ -110,6 +111,9 @@ if __name__ == "__main__":
         "Pradhan Mantri PVTG Development Mission",
         "Vivad se Vishwas"
     ]
+    
+    app.clear_dimensions()
+
     for query in queries:
         print(query + ":", app.query_qa(query, qa_chain))
         print("****************************************************************************")
